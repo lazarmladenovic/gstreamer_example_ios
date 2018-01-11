@@ -146,9 +146,12 @@ static void state_changed_cb (GstBus *bus, GstMessage *msg, GStreamerBackend *se
     /* Build pipeline */
     //pipeline = gst_parse_launch("videotestsrc ! autovideosink", &error);
     //pipeline = gst_parse_launch("videotestsrc ! warptv ! videoconvert ! autovideosink", &error);
-    pipeline = gst_parse_launch("udpsrc port=5200 caps=\"application/x-rtp\" ! rtpjpegdepay ! jpegdec ! autovideosink", &error);
-
+    //pipeline = gst_parse_launch("wrappercamerabinsrc ! video/x-raw,width=640,height=480 ! jpegenc ! rtpjpegpay ! rtpjpegdepay ! jpegdec ! autovideosink", &error);
+    //pipeline = gst_parse_launch("wrappercamerabinsrc ! video/x-raw,width=640,height=480 ! warptv ! videoconvert ! autovideosink", &error);
+    //pipeline = gst_parse_launch("wrappercamerabinsrc ! video/x-raw,width=640,height=480 ! videoflip method=clockwise ! videoconvert ! autovideosink", &error);
     //pipeline = gst_parse_launch("autoaudiosrc ! audioconvert ! audioresample ! autoaudiosink", &error);
+    
+    pipeline = gst_parse_launch("udpsrc port=5200 caps=\"application/x-rtp\" ! rtpjpegdepay ! jpegdec ! autovideosink", &error);
 
     if (error) {
         gchar *message = g_strdup_printf("Unable to build pipeline: %s", error->message);
